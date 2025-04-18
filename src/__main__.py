@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from cache.cache_interface import CacheInterface
-from class_tennis.src.data_validator import DataValidatorPipeline
+from src.loader.parquet_data_loader import DataValidatorPipeline
 from source_parser import SourceParser
 from generate_data import generate_test_data
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         (
             "tennis",
             Path(
-                "/Users/ikaromoribayashi/Documents/projects/class_tennis/data/tennis/"
+                "data/tennis/"
             ),
         ),
     ]

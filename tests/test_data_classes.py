@@ -1,5 +1,5 @@
-from ingestion.data_loader import CSVDataLoader
-from ingestion.data_parser import TennisMatchParser
+from src.loader.csv_data_loader import CSVDataLoader
+from src.source_parser.tennis_match_parser import TennisMatchParser
 
 
 def main():
@@ -7,7 +7,7 @@ def main():
     config = {"required_columns": ["tourney_id", "tourney_name", "surface"]}
 
     data_loader = CSVDataLoader(
-        "../data/archives/tennis/",
+        "dataset",
         config=config,
     )
 
@@ -18,7 +18,7 @@ def main():
         print(data.shape)
         data_col = ["tourney_date"]
 
-        tennis_match_parser = TennisMatchParser(data, data_col=data_col)
+        tennis_match_parser = TennisMatchParser(data)
         data = tennis_match_parser.parse()
 
         if data_loader.validate_data(data):
