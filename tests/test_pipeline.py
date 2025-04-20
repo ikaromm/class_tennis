@@ -10,8 +10,10 @@ class TestPipeline(TestCase):
     def test_pipeline(self):
         config = PipelineConfig(
             dataset_type=DatasetType.TENNIS_MATCH,
-            dataset_path="dataset",
-            loader_type=LoaderType.CSV
+            dataset_path="dataset/",
+            loader_type=LoaderType.CSV,
+            path="dataset/test",
+            data_col="tourney_date",
         )
 
         PipelineRunner.run(config)

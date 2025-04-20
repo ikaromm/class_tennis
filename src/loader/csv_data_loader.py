@@ -12,9 +12,10 @@ class CSVDataLoader(BaseDataLoader):
     """
     Data loader for CSV files.
     """
+
     loader_type = LoaderType.CSV
 
-    def __init__(self, dataset_path: str|Path, **config: Unpack[PipelineConfig]):
+    def __init__(self, dataset_path: str | Path, **config: Unpack[PipelineConfig]):
         """
         Initialize the CSV data loader.
 
@@ -23,11 +24,11 @@ class CSVDataLoader(BaseDataLoader):
             config: Configuration dictionary with loader-specific settings
         """
         super().__init__(**config)
-        
+
         dataset_path = Path(dataset_path)
         if not dataset_path.exists():
             raise RuntimeError("Dataset path not found")
-        
+
         self.dataset_path = Path(dataset_path)
 
     def load_data(self) -> pd.DataFrame:
@@ -41,14 +42,15 @@ class CSVDataLoader(BaseDataLoader):
             data = pd.DataFrame()
 
             for file in self.dataset_path.rglob("*.csv"):
-                data_holder = pd.read_csv(
-                    file, **self._get_csv_options()
-                )
+                data_holder = pd.read_csv(file, **self._get_csv_options())
                 data = pd.concat([data, data_holder], ignore_index=True)
 
             return data
+
         except Exception as e:
-            raise RuntimeError(f"Failed to load data from {self.dataset_path}: {str(e)}")
+            raise RuntimeError(
+                f"Failed to load data from {self.dataset_path}: {str(e)}"
+            )
 
     def save_data(self, data: pd.DataFrame, path: str) -> None:
         """
@@ -84,9 +86,8 @@ class CSVDataLoader(BaseDataLoader):
             return False
 
         # Check required columns if specified in config
-        if (
-            "required_columns" in self.config and 
-            not all(col in data.columns for col in self.config["required_columns"])
+        if "required_columns" in self.config and not all(
+            col in data.columns for col in self.config["required_columns"]
         ):
             return False
 

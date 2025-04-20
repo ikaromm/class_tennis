@@ -19,7 +19,7 @@ class TennisMatchParser(BaseDataParser):
         **config: Unpack[PipelineConfig],
     ):
         super().__init__(**config)
-
+        self._data_col = "tourney_date"
         self.data = data
 
     def parse(self) -> pd.DataFrame:
@@ -32,20 +32,15 @@ class TennisMatchParser(BaseDataParser):
         Returns:
             Parsed and standardized DataFrame
         """
-        # Make a copy to avoid modifying the original data
+
         parsed_data = self.data.copy()
 
-        # Standardize column names
         parsed_data = self._standardize_column_names(parsed_data)
-        print(self.data_col)
-        # Extract and transform date information
-        if len(self.data_col) > 0:
-            parsed_data = self._process_date_column(parsed_data, self.data_col)
 
-        # Process player information
+        parsed_data = self._process_date_column(parsed_data, self._data_col)
+
         parsed_data = self._process_player_information(parsed_data)
 
-        # Process match statistics
         parsed_data = self._process_match_statistics(parsed_data)
 
         return parsed_data
@@ -85,17 +80,15 @@ class TennisMatchParser(BaseDataParser):
             DataFrame with processed date information
         """
         try:
-            _data_col = "tourney_date"
-
-            data[_data_col] = pd.to_datetime(data[_data_col])
+            data[self._data_col] = pd.to_datetime(data[self._data_col])
 
             # Format date as YYYY-MM-DD (year-month-day only)
-            data[_data_col] = data[_data_col].dt.strftime("%Y-%m-%d")
+            data[self._data_col] = data[self._data_col].dt.strftime("%Y-%m-%d")
 
             # Extract additional date components
-            data["year"] = pd.to_datetime(data[_data_col]).dt.year
-            data["month"] = pd.to_datetime(data[_data_col]).dt.month
-            data["day"] = pd.to_datetime(data[_data_col]).dt.day
+            data["year"] = pd.to_datetime(data[self._data_col]).dt.year
+            data["month"] = pd.to_datetime(data[self._data_col]).dt.month
+            data["day"] = pd.to_datetime(data[self._data_col]).dt.day
 
             # Create a concatenated column with year, month, and day
             data["date_concat"] = (
@@ -136,4 +129,3 @@ class TennisMatchParser(BaseDataParser):
         """
 
         return data
-    

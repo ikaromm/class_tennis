@@ -9,9 +9,7 @@ from src.transformers.log_data import log_data
 
 
 class PipelineRunner:
-    transformer: list[Callable[[pd.DataFrame], pd.DataFrame]] = [
-        log_data
-    ]
+    transformer: list[Callable[[pd.DataFrame], pd.DataFrame]] = [log_data]
 
     @staticmethod
     def run(config: PipelineConfig):
@@ -19,18 +17,11 @@ class PipelineRunner:
 
         data = loader.process()
 
-        parser = BaseDataParser.from_config(config)
+        parser = BaseDataParser.from_config(data, config)
 
-        data = parser.process(data)
+        data = parser.process()
 
         for trans in PipelineRunner.transformer:
             data = trans(data)
 
-        loader.save_data(data)
-
-        
-
-
-
-        
-
+        loader.save_data(data, config.get("path"))

@@ -7,15 +7,12 @@ from abc import ABC, abstractmethod
 from typing import Any, Unpack
 
 
-
-
-
-
 class BaseDataParser(ABC):
     """
     Abstract base class for data parsing operations.
     Defines the interface for all data parsers in the system.
     """
+
     dataset_type: DatasetType = None
 
     def __init__(self, **config: Unpack[PipelineConfig]):
@@ -27,12 +24,12 @@ class BaseDataParser(ABC):
         """
         self.config = config
 
-    def process(self, data: pd.DataFrame) -> pd.DataFrame:
-        data = self.parse(data)
+    def process(self) -> pd.DataFrame:
+        data = self.parse()
 
         if not self._validate_parsed_data(data):
             raise RuntimeError("Dado Invalido")
-        
+
         return data
 
     @abstractmethod
@@ -71,11 +68,11 @@ class BaseDataParser(ABC):
         return True
 
     @classmethod
-    def from_config(cls, config: PipelineConfig):
+    def from_config(cls, data, config: PipelineConfig):
         for sub_clz in cls.__subclasses__():
             if sub_clz.dataset_type != config["dataset_type"]:
                 continue
 
-            return sub_clz(**config)
+            return sub_clz(data, **config)
 
-        raise NotImplemented
+        raise NotImplementedError

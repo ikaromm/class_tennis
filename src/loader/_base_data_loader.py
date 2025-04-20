@@ -32,7 +32,7 @@ class BaseDataLoader(ABC):
         Returns:
             DataFrame containing the loaded data
         """
-        pass
+        raise NotImplementedError
 
     def validate_data(self, data: pd.DataFrame) -> bool:
         """
@@ -55,7 +55,7 @@ class BaseDataLoader(ABC):
             data: DataFrame to save
             path: Path where to save the data
         """
-        ...
+        pass
 
     def process(self) -> pd.DataFrame:
         """
@@ -68,12 +68,12 @@ class BaseDataLoader(ABC):
         if not self.validate_data(data):
             raise ValueError("Data validation failed")
         return data
-    
+
     @classmethod
     def from_config(cls, config: PipelineConfig):
         for sub_clz in cls.__subclasses__():
             if sub_clz.loader_type != config["loader_type"]:
                 continue
             return sub_clz(**config)
-        
-        raise NotImplemented
+
+        raise NotImplementedError
