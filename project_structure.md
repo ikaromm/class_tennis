@@ -1,271 +1,144 @@
-# Tennis Match Prediction Pipeline - Implementation Plan
+# Tennis Match Prediction Pipeline - Project Structure
 
-Based on the PDR and ADR, here's a detailed implementation plan for your tennis match prediction project.
+This document outlines the detailed structure of the Tennis Match Prediction Pipeline project, including component descriptions and relationships.
 
-## Project Structure
+## Current Project Structure
 
 ```
 class_tennis/
-├── data/                      # Raw and processed data
-│   ├── raw/                   # Original data files
-│   ├── processed/             # Cleaned and transformed data
-│   └── features/              # Generated features
-├── src/                       # Source code
-│   ├── data/                  # Data handling modules
-│   │   ├── __init__.py
-│   │   ├── ingestion/         # Data loading and parsing
-│   │   │   ├── __init__.py
-│   │   │   ├── base_loader.py # Abstract base class for data loading
-│   │   │   ├── csv_loader.py  # CSV data loader implementation
-│   │   │   └── api_loader.py  # API data loader implementation
-│   │   ├── preprocessing/     # Data cleaning and transformation
-│   │   │   ├── __init__.py
-│   │   │   ├── cleaner.py     # Data cleaning utilities
-│   │   │   └── transformer.py # Data transformation utilities
-│   │   └── validator.py       # Data validation
-│   ├── features/              # Feature engineering
-│   │   ├── __init__.py
-│   │   ├── base_engineer.py   # Abstract base class for feature engineering
-│   │   ├── player_features.py # Player-specific features
-│   │   ├── match_features.py  # Match-specific features
-│   │   ├── surface_features.py # Surface-specific features
-│   │   └── feature_pipeline.py # Feature engineering pipeline
-│   ├── models/                # Machine learning models
-│   │   ├── __init__.py
-│   │   ├── base_model.py      # Abstract base class for models
-│   │   ├── model_factory.py   # Factory for model creation
-│   │   ├── classifiers/       # Model implementations
-│   │   │   ├── __init__.py
-│   │   │   ├── random_forest.py
-│   │   │   ├── gradient_boosting.py
-│   │   │   └── neural_network.py
-│   │   └── evaluation/        # Model evaluation
-│   │       ├── __init__.py
-│   │       ├── metrics.py     # Evaluation metrics
-│   │       └── cross_validator.py # Cross-validation utilities
-│   ├── prediction/            # Prediction interface
-│   │   ├── __init__.py
-│   │   ├── predictor.py       # Main prediction class
-│   │   └── explainer.py       # Prediction explanation
-│   ├── utils/                 # Utility functions
-│   │   ├── __init__.py
-│   │   ├── logger.py          # Logging configuration
-│   │   ├── config.py          # Configuration management
-│   │   └── visualization.py   # Data visualization
-│   └── __main__.py            # Entry point
-├── tests/                     # Test suite
-│   ├── __init__.py
-│   ├── unit/                  # Unit tests
-│   │   ├── __init__.py
-│   │   ├── test_data.py
-│   │   ├── test_features.py
-│   │   └── test_models.py
-│   └── integration/           # Integration tests
-│       ├── __init__.py
-│       └── test_pipeline.py
-├── notebooks/                 # Jupyter notebooks for exploration
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   └── 03_model_comparison.ipynb
-├── configs/                   # Configuration files
-│   ├── data_config.yaml
-│   ├── feature_config.yaml
-│   └── model_config.yaml
-├── pyproject.toml            # Project dependencies and metadata
-├── README.md                 # Project documentation
-├── PDR.md                    # Project Design Requirements
-└── ADR.md                    # Architecture Decision Record
+├── dataset/               # Tennis match datasets
+├── eda_results/           # Exploratory data analysis results
+├── notebooks/             # Jupyter notebooks for analysis
+├── src/                   # Source code
+│   ├── cache/             # Caching mechanisms
+│   │   └── cache_interface.py
+│   ├── config/            # Configuration modules
+│   │   ├── dataset_type.py
+│   │   ├── load_type.py
+│   │   └── pipeline_config.py
+│   ├── loader/            # Data loading modules
+│   │   ├── _base_data_loader.py
+│   │   └── csv_data_loader.py
+│   ├── source_parser/     # Parsing modules for different data sources
+│   │   ├── _base_parser.py
+│   │   └── tennis_match_parser.py
+│   ├── transformers/      # Data transformation modules
+│   │   └── log_data.py
+│   └── pipeline.py        # Main pipeline orchestration
+├── tests/                 # Test suite
+│   ├── test_config/       # Configuration tests
+│   ├── test_loader/       # Loader tests
+│   ├── test_parser/       # Parser tests
+│   ├── utils/             # Test utilities
+│   └── test_pipeline.py   # Pipeline integration tests
+├── pyproject.toml         # Project dependencies and metadata
+├── README.md              # Project documentation
+├── PDR.md                 # Project Design Requirements
+└── ADR.md                 # Architecture Decision Record
 ```
 
-## Implementation Steps
+## Component Descriptions
 
-### Phase 1: Project Setup and Data Collection
+### Core Pipeline Components
 
-1. **Set up project structure**
-   - Create directories and files according to the structure above
-   - Configure dependency management with Poetry
-   - Set up logging and configuration
+#### PipelineRunner (pipeline.py)
+The central orchestrator that coordinates the flow of data through the system. It:
+- Instantiates loaders and parsers based on configuration
+- Applies transformers sequentially
+- Manages the overall data processing flow
 
-2. **Implement data ingestion**
-   - Create abstract base class for data loaders
-   - Implement concrete loaders for your data sources
-   - Add data validation and basic cleaning
+#### BaseDataLoader (_base_data_loader.py)
+Abstract base class that defines the interface for all data loaders:
+- Factory method (`from_config`) to create appropriate loader instances
+- Abstract methods for data processing and saving
 
-3. **Exploratory data analysis**
-   - Create notebooks for data exploration
-   - Analyze data distributions and relationships
-   - Identify potential features and patterns
+#### CSVDataLoader (csv_data_loader.py)
+Concrete implementation of BaseDataLoader for CSV data sources:
+- Loads data from CSV files
+- Handles CSV-specific parsing options
+- Implements data saving functionality
 
-### Phase 2: Data Preprocessing and Feature Engineering
+#### BaseDataParser (_base_parser.py)
+Abstract base class that defines the interface for all data parsers:
+- Factory method (`from_config`) to create appropriate parser instances
+- Abstract methods for data processing
 
-1. **Implement data preprocessing**
-   - Create data cleaning pipeline
-   - Handle missing values and outliers
-   - Normalize/standardize features
+#### TennisMatchParser (tennis_match_parser.py)
+Concrete implementation of BaseDataParser for tennis match data:
+- Parses tennis-specific data formats
+- Standardizes column names and data types
+- Performs initial data cleaning
 
-2. **Implement feature engineering**
-   - Create base feature engineering class
-   - Implement player-specific features
-   - Implement surface-specific features
-   - Implement match context features
-   - Create feature pipeline
+### Configuration Components
 
-3. **Feature selection and evaluation**
-   - Analyze feature importance
-   - Remove redundant features
-   - Create feature sets for experimentation
+#### PipelineConfig (pipeline_config.py)
+Configuration container that:
+- Stores pipeline parameters
+- Provides access to configuration values
+- Validates configuration options
 
-### Phase 3: Model Development and Evaluation
+#### LoadType (load_type.py)
+Enum defining supported data loading types:
+- CSV
+- (Potentially others in the future)
 
-1. **Implement model framework**
-   - Create base model class
-   - Implement model factory
-   - Set up evaluation metrics
+#### DatasetType (dataset_type.py)
+Enum defining supported dataset types:
+- TENNIS_MATCH
+- (Potentially others in the future)
 
-2. **Implement model variants**
-   - Random Forest classifier
-   - Gradient Boosting classifier
-   - Neural Network classifier
-   - Other models as needed
+### Transformation Components
 
-3. **Model evaluation and selection**
-   - Implement cross-validation
-   - Compare model performance
-   - Tune hyperparameters
-   - Select best model
+#### log_data (log_data.py)
+Simple transformer that logs data information during processing:
+- Provides visibility into the data flow
+- Helps with debugging and monitoring
 
-### Phase 4: Prediction Interface and Testing
+### Caching Components
 
-1. **Implement prediction interface**
-   - Create Predictor class
-   - Implement prediction explanation
-   - Create command-line interface
+#### CacheInterface (cache_interface.py)
+Interface for caching mechanisms:
+- Defines methods for storing and retrieving cached data
+- Supports different storage backends
 
-2. **Comprehensive testing**
-   - Write unit tests for all components
-   - Create integration tests for the pipeline
-   - Test with various input scenarios
+## Component Relationships
 
-3. **Documentation and finalization**
-   - Complete code documentation
-   - Update README and usage instructions
-   - Create example notebooks
+1. **Configuration → Loaders/Parsers**:
+   - PipelineConfig provides parameters to instantiate appropriate loaders and parsers
+   - Factory methods use configuration to create the right component instances
 
-## Class Diagrams
+2. **Loaders → Parsers**:
+   - Loaders provide raw data to parsers
+   - Parsers transform raw data into standardized formats
 
-### Data Module
+3. **Parsers → Transformers**:
+   - Parsers provide standardized data to transformers
+   - Transformers apply sequential modifications to the data
 
-```
-BaseDataLoader (ABC)
-├── load_data()
-├── validate_data()
-└── save_data()
+4. **Pipeline Orchestration**:
+   - PipelineRunner coordinates the flow between all components
+   - Ensures proper sequencing of operations
 
-CSVDataLoader (BaseDataLoader)
-├── load_data()
-├── _parse_csv()
-└── save_data()
+## Future Extensions
 
-APIDataLoader (BaseDataLoader)
-├── load_data()
-├── _make_api_request()
-└── save_data()
+The modular architecture allows for several planned extensions:
 
-DataCleaner
-├── remove_duplicates()
-├── handle_missing_values()
-└── remove_outliers()
+1. **Additional Data Loaders**:
+   - API data loaders
+   - Database connectors
+   - Streaming data sources
 
-DataTransformer
-├── normalize_features()
-├── encode_categorical()
-└── create_time_features()
+2. **Enhanced Transformers**:
+   - Feature engineering transformers
+   - Data normalization
+   - Dimensionality reduction
 
-DataValidator
-├── validate_schema()
-├── check_data_quality()
-└── generate_validation_report()
-```
+3. **Model Components**:
+   - Model training modules
+   - Model evaluation framework
+   - Prediction interface
 
-### Feature Engineering Module
-
-```
-BaseFeatureEngineer (ABC)
-├── extract_features()
-├── transform_features()
-└── get_feature_names()
-
-PlayerFeatureEngineer (BaseFeatureEngineer)
-├── extract_features()
-├── _calculate_player_stats()
-└── get_feature_names()
-
-SurfaceFeatureEngineer (BaseFeatureEngineer)
-├── extract_features()
-├── _calculate_surface_performance()
-└── get_feature_names()
-
-MatchFeatureEngineer (BaseFeatureEngineer)
-├── extract_features()
-├── _calculate_match_context()
-└── get_feature_names()
-
-FeaturePipeline
-├── add_feature_engineer()
-├── run_pipeline()
-└── get_feature_matrix()
-```
-
-### Model Module
-
-```
-BaseModel (ABC)
-├── train()
-├── predict()
-├── evaluate()
-└── save()
-
-RandomForestModel (BaseModel)
-├── train()
-├── predict()
-├── get_feature_importance()
-└── save()
-
-GradientBoostingModel (BaseModel)
-├── train()
-├── predict()
-├── get_feature_importance()
-└── save()
-
-NeuralNetworkModel (BaseModel)
-├── train()
-├── predict()
-├── save()
-└── _build_network()
-
-ModelFactory
-├── create_model()
-└── register_model()
-
-ModelEvaluator
-├── cross_validate()
-├── calculate_metrics()
-└── compare_models()
-```
-
-### Prediction Module
-
-```
-Predictor
-├── load_model()
-├── predict_match()
-├── get_confidence()
-└── explain_prediction()
-
-PredictionExplainer
-├── generate_explanation()
-├── feature_importance()
-└── visualize_explanation()
-```
-
-This implementation plan provides a comprehensive roadmap for building your tennis match prediction pipeline using object-oriented principles and best practices in machine learning engineering.
+4. **Advanced Caching**:
+   - Distributed caching
+   - Cache invalidation strategies
+   - Memory/disk hybrid caching

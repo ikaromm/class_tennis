@@ -6,57 +6,29 @@
 We need to design a modular, maintainable system for tennis match prediction that follows best practices in machine learning pipeline development.
 
 ### Decision
-We will implement a class-based architecture with clear separation of concerns following these principles:
-- Data ingestion, preprocessing, feature engineering, model training, and prediction as separate modules
-- Abstract base classes for common interfaces
-- Factory patterns for model creation
-- Pipeline pattern for data flow
-- Strategy pattern for different feature engineering approaches
+We have implemented a class-based architecture with clear separation of concerns following these principles:
+- Data loading, parsing, and transformation as separate modules
+- Abstract base classes for common interfaces (BaseDataLoader, BaseDataParser)
+- Pipeline pattern for data flow through the system
+- Transformer pattern for data processing steps
+- Configuration-driven approach for flexibility
 
 ### Structure
 ```
 src/
-├── data/
-│   ├── ingestion/
-│   │   ├── data_loader.py
-│   │   ├── data_parser.py
-│   │   └── source_connector.py
-│   ├── preprocessing/
-│   │   ├── cleaner.py
-│   │   ├── transformer.py
-│   │   └── validator.py
-│   └── data_manager.py
-├── features/
-│   ├── base_feature_engineer.py
-│   ├── player_features.py
-│   ├── match_features.py
-│   ├── surface_features.py
-│   └── feature_pipeline.py
-├── models/
-│   ├── base_model.py
-│   ├── model_factory.py
-│   ├── classifiers/
-│   │   ├── random_forest.py
-│   │   ├── gradient_boosting.py
-│   │   └── neural_network.py
-│   └── evaluation/
-│       ├── metrics.py
-│       └── cross_validator.py
-├── prediction/
-│   ├── predictor.py
-│   └── explainer.py
-├── utils/
-│   ├── logger.py
-│   ├── config.py
-│   └── visualization.py
-└── main.py
+├── loader/                # Data loading modules
+├── source_parser/         # Parsing modules for different data sources
+├── transformers/          # Data transformation modules
+├── cache/                 # Caching mechanisms
+├── config/                # Configuration modules
+└── pipeline.py            # Main pipeline orchestration
 ```
 
 ### Consequences
-- Increased initial development time due to more complex architecture
-- Better maintainability and extensibility in the long run
-- Easier testing of individual components
-- Clear separation of concerns
+- Improved maintainability through modular design
+- Enhanced extensibility for adding new data sources and transformations
+- Better testability of individual components
+- Clear separation of concerns between data loading, parsing, and transformation
 
 ## ADR 2: Data Management Strategy
 
@@ -64,89 +36,100 @@ src/
 Tennis match data can be complex, with various sources, formats, and potential inconsistencies.
 
 ### Decision
-We will implement a comprehensive data management strategy:
-1. Use a DataLoader abstract class with concrete implementations for different data sources
-2. Implement a caching mechanism to avoid redundant data loading
-3. Create a DataValidator class to ensure data quality
-4. Use a DataTransformer class for consistent preprocessing
+We have implemented a comprehensive data management strategy:
+1. A modular approach with separate components:
+   - Loader modules for different data sources (e.g., CSVDataLoader)
+   - Source parsers for handling different data formats (e.g., TennisMatchParser)
+   - Transformers for data preprocessing
+2. Factory methods (from_config) to instantiate appropriate components based on configuration
+3. Consistent data flow through the pipeline
+4. Logging transformers to track data changes
 
 ### Consequences
 - More robust handling of data inconsistencies
-- Reduced data loading time through caching
 - Consistent data format throughout the pipeline
 - Easier addition of new data sources
+- Better visibility into data transformations
 
-## ADR 3: Feature Engineering Approach
-
-### Context
-Feature engineering is critical for tennis match prediction, as raw statistics alone may not capture all relevant patterns.
-
-### Decision
-We will implement a modular feature engineering system:
-1. Create a BaseFeatureEngineer abstract class
-2. Implement specialized feature engineers for:
-   - Player-specific features (form, playing style, head-to-head)
-   - Surface-specific features (performance on different surfaces)
-   - Tournament-specific features (performance in different tournaments/rounds)
-   - Time-based features (recent form, seasonal patterns)
-3. Use a FeaturePipeline class to combine and orchestrate feature generation
-
-### Consequences
-- More comprehensive feature set
-- Ability to easily add or modify features
-- Better organization of domain knowledge
-- Potential for feature selection to optimize model performance
-
-## ADR 4: Model Selection and Training
+## ADR 3: Configuration Management
 
 ### Context
-Different machine learning models may perform differently on tennis prediction tasks.
+The system needs flexible configuration options to support different execution environments and parameter settings.
 
 ### Decision
-We will implement a model experimentation framework:
-1. Create a BaseModel abstract class with common interface
-2. Implement various model types (tree-based, neural networks, etc.)
-3. Use a ModelFactory for easy model instantiation
-4. Implement a systematic evaluation framework with cross-validation
-5. Create a model registry to track experiments
+We have implemented a dedicated configuration module that:
+1. Provides centralized configuration management through PipelineConfig
+2. Defines enums for different types (LoadType, DatasetType)
+3. Enables configuration-driven component instantiation
+4. Maintains separation between code and configuration
 
 ### Consequences
-- Ability to easily compare different models
-- Systematic approach to model selection
-- Reproducible training and evaluation process
-- Clear tracking of model performance
+- More flexible system behavior
+- Easier parameter tuning
+- Better reproducibility of experiments
+- Simplified deployment to different environments
 
-## ADR 5: Prediction Interface
+## ADR 4: Pipeline Architecture
 
 ### Context
-The system needs a clean interface for making predictions with minimal input.
+The system needs to coordinate multiple processing steps in a consistent way.
 
 ### Decision
-We will implement a Predictor class that:
-1. Takes minimal input (player names, surface)
-2. Handles all the necessary data retrieval and feature generation
-3. Makes predictions using the best available model
-4. Provides confidence scores and explanations
-5. Offers both programmatic and CLI interfaces
+We have implemented a pipeline architecture that:
+1. Defines a clear flow of data through the system via the PipelineRunner class
+2. Follows a sequential processing model: load → parse → transform → save
+3. Applies transformers sequentially to the data
+4. Supports configuration-driven pipeline construction
 
 ### Consequences
-- Simple interface for end users
-- Encapsulation of complex pipeline details
-- Ability to explain predictions
-- Flexibility in how the system is used
+- More structured data flow
+- Better error handling and recovery
+- Improved observability through logging transformers
+- Easier extension with new processing steps
 
-## ADR 6: Testing Strategy
+## ADR 5: Transformer Pattern
+
+### Context
+Data processing often involves multiple sequential transformations that need to be applied consistently.
+
+### Decision
+We have implemented a transformer pattern where:
+1. Each transformer is a callable that takes a DataFrame and returns a transformed DataFrame
+2. Transformers are registered with the pipeline and applied sequentially
+3. Simple transformers like log_data provide visibility into the data flow
+
+### Consequences
+- More flexible data processing
+- Better separation of concerns
+- Easier testing of individual transformations
+- Improved maintainability
+
+## ADR 6: Caching Strategy
+
+### Context
+Tennis data processing can be computationally expensive, and some operations may be repeated.
+
+### Decision
+We have implemented a dedicated caching module that:
+1. Defines a cache interface for storing intermediate results
+2. Provides mechanisms to avoid redundant processing
+3. Supports different storage options
+
+### Consequences
+- Improved performance for repeated operations
+- Reduced computational overhead
+- Better resource utilization
+
+## ADR 7: Testing Strategy
 
 ### Context
 Ensuring the reliability and correctness of the prediction system is essential.
 
 ### Decision
-We will implement a comprehensive testing strategy:
-1. Unit tests for all classes and methods
-2. Integration tests for component interactions
-3. End-to-end tests for the complete pipeline
-4. Data validation tests to catch data quality issues
-5. Performance benchmarks for critical components
+We have implemented a comprehensive testing strategy:
+1. Unit tests for individual components (test_loader, test_parser, test_config)
+2. Integration tests for component interactions (test_pipeline)
+3. Test utilities for common testing operations
 
 ### Consequences
 - Higher code quality and reliability
@@ -154,21 +137,20 @@ We will implement a comprehensive testing strategy:
 - Better documentation through tests
 - More confidence in system behavior
 
-## ADR 7: Dependency Management and Environment
+## ADR 8: Dependency Management and Environment
 
 ### Context
 Managing dependencies and ensuring reproducibility is important for long-term maintenance.
 
 ### Decision
-We will use:
-1. Poetry for dependency management
+We are using:
+1. Poetry for dependency management (as seen in pyproject.toml)
 2. Virtual environments for isolation
 3. Version pinning for all dependencies
-4. Configuration files for environment-specific settings
-5. Docker containers for deployment (optional)
+4. Separate dependency groups for development
 
 ### Consequences
 - Consistent development and production environments
 - Easier onboarding for new developers
 - Better reproducibility of results
-- Simplified deployment process
+- Simplified dependency management
