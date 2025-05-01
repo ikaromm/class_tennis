@@ -6,9 +6,11 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastparquet>=2024.11.0",
+    "glicko2>=2.1.0",
     "pandas>=2.2.3",
     "pyarrow>=19.0.1",
     "scikit-learn>=1.6.1",
+    "trueskill>=0.4.5",
 ]
 
 [dependency-groups]

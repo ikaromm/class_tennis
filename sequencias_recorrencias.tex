@@ -1,0 +1,1085 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\title{\textbf{Sequências e Recorrências para Turmas Olímpicas}}
+\author{Material para 8º ano ao 2º ano do Ensino Médio}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Introdução às Sequências}
+
+Uma sequência é uma função cujo domínio é o conjunto dos números naturais. Denotamos uma sequência por $(a_n)_{n \geq 1}$ ou simplesmente $(a_n)$, onde $a_n$ representa o $n$-ésimo termo da sequência.
+
+\section{Progressão Aritmética (PA) - Estudo Detalhado}
+
+Uma progressão aritmética é uma sequência na qual a diferença entre termos consecutivos é constante. Essa diferença constante é chamada de razão da PA e é denotada por $d$.
+
+\subsection{Definição Formal}
+
+Uma sequência $(a_n)$ é uma progressão aritmética se, e somente se, existe um número real $d$ tal que:
+
+\begin{equation}
+a_{n+1} - a_n = d, \quad \text{para todo } n \geq 1
+\end{equation}
+
+\subsection{Termo Geral}
+
+O termo geral (ou $n$-ésimo termo) de uma PA é dado por:
+
+\begin{equation}
+a_n = a_1 + (n-1)d
+\end{equation}
+
+onde $a_1$ é o primeiro termo e $d$ é a razão da PA.
+
+\subsection{Propriedades Importantes}
+
+\begin{enumerate}
+    \item \textbf{Termo médio}: O termo médio entre $a_p$ e $a_q$ é $\frac{a_p + a_q}{2}$
+    \item \textbf{Soma dos termos equidistantes dos extremos}: $a_k + a_{n-k+1} = a_1 + a_n$
+    \item \textbf{Inserção de meios aritméticos}: Para inserir $m$ meios aritméticos entre $a$ e $b$, a razão será $d = \frac{b-a}{m+1}$
+\end{enumerate}
+
+\subsection{Soma dos Termos}
+
+A soma dos $n$ primeiros termos de uma PA é dada por:
+
+\begin{equation}
+S_n = \frac{n(a_1 + a_n)}{2} = \frac{n[2a_1 + (n-1)d]}{2}
+\end{equation}
+
+\subsection{Exemplos Resolvidos}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exemplo 1]
+Determine o 20º termo da PA em que $a_1 = 5$ e $d = 3$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 + (n-1)d\\
+a_{20} &= 5 + (20-1) \cdot 3\\
+a_{20} &= 5 + 19 \cdot 3\\
+a_{20} &= 5 + 57\\
+a_{20} &= 62
+\end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exemplo 2]
+A soma dos 30 primeiros termos de uma PA é 1275. Se $a_1 = 10$, determine a razão $d$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{n[2a_1 + (n-1)d]}{2}\\
+1275 &= \frac{30[2 \cdot 10 + (30-1)d]}{2}\\
+1275 &= \frac{30[20 + 29d]}{2}\\
+1275 &= 15[20 + 29d]\\
+1275 &= 300 + 435d\\
+435d &= 1275 - 300\\
+435d &= 975\\
+d &= \frac{975}{435} = \frac{15 \cdot 65}{15 \cdot 29} = \frac{65}{29} = 2.24...
+\end{align}
+
+Como estamos trabalhando com uma PA, e a razão deve ser constante, temos $d = \frac{65}{29}$.
+\end{tcolorbox}
+
+\section{Progressão Geométrica (PG) - Estudo Detalhado}
+
+Uma progressão geométrica é uma sequência na qual a razão entre termos consecutivos é constante. Essa razão constante é chamada de razão da PG e é denotada por $q$.
+
+\subsection{Definição Formal}
+
+Uma sequência $(a_n)$ é uma progressão geométrica se, e somente se, existe um número real $q \neq 0$ tal que:
+
+\begin{equation}
+\frac{a_{n+1}}{a_n} = q, \quad \text{para todo } n \geq 1
+\end{equation}
+
+\subsection{Termo Geral}
+
+O termo geral (ou $n$-ésimo termo) de uma PG é dado por:
+
+\begin{equation}
+a_n = a_1 \cdot q^{n-1}
+\end{equation}
+
+onde $a_1$ é o primeiro termo e $q$ é a razão da PG.
+
+\subsection{Propriedades Importantes}
+
+\begin{enumerate}
+    \item \textbf{Termo médio geométrico}: O termo médio geométrico entre $a_p$ e $a_q$ é $\sqrt{a_p \cdot a_q}$
+    \item \textbf{Produto dos termos equidistantes dos extremos}: $a_k \cdot a_{n-k+1} = a_1 \cdot a_n$
+    \item \textbf{Inserção de meios geométricos}: Para inserir $m$ meios geométricos entre $a$ e $b$, a razão será $q = \sqrt[m+1]{\frac{b}{a}}$
+\end{enumerate}
+
+\subsection{Soma dos Termos}
+
+A soma dos $n$ primeiros termos de uma PG é dada por:
+
+\begin{equation}
+S_n = \frac{a_1(1-q^n)}{1-q}, \quad \text{para } q \neq 1
+\end{equation}
+
+Se $q = 1$, então $S_n = n \cdot a_1$.
+
+\subsection{Soma dos Infinitos Termos}
+
+Se $|q| < 1$, a soma dos infinitos termos de uma PG é dada por:
+
+\begin{equation}
+S_{\infty} = \frac{a_1}{1-q}
+\end{equation}
+
+\subsection{Exemplos Resolvidos}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exemplo 1]
+Determine o 8º termo da PG em que $a_1 = 3$ e $q = 2$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 \cdot q^{n-1}\\
+a_8 &= 3 \cdot 2^{8-1}\\
+a_8 &= 3 \cdot 2^7\\
+a_8 &= 3 \cdot 128\\
+a_8 &= 384
+\end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exemplo 2]
+A soma dos 6 primeiros termos de uma PG é 63. Se $a_1 = 1$ e $q = 2$, determine o valor de $a_6$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{a_1(1-q^n)}{1-q}\\
+63 &= \frac{1(1-2^6)}{1-2}\\
+63 &= \frac{1-64}{-1}\\
+63 &= \frac{-63}{-1}\\
+63 &= 63
+\end{align}
+
+Verificamos que a soma é realmente 63. Para encontrar $a_6$:
+\begin{align}
+a_6 &= a_1 \cdot q^{6-1}\\
+a_6 &= 1 \cdot 2^5\\
+a_6 &= 32
+\end{align}
+\end{tcolorbox}
+\section{Recorrências}
+
+\subsection{Definição}
+
+Uma relação de recorrência é uma equação que define cada termo da sequência como uma função de termos anteriores.
+
+\subsection{Recorrências Lineares de Primeira Ordem}
+
+Uma recorrência linear de primeira ordem tem a forma:
+
+\begin{equation}
+a_n = \alpha \cdot a_{n-1} + \beta
+\end{equation}
+
+onde $\alpha$ e $\beta$ são constantes.
+
+\subsubsection{Solução}
+
+Para resolver este tipo de recorrência:
+
+\begin{itemize}
+    \item Se $\alpha = 1$, então $a_n = a_1 + (n-1)\beta$ (PA)
+    \item Se $\alpha \neq 1$, então $a_n = \alpha^{n-1}a_1 + \beta\frac{1-\alpha^{n-1}}{1-\alpha}$
+\end{itemize}
+
+\subsection{Recorrências Lineares de Segunda Ordem}
+
+Uma recorrência linear homogênea de segunda ordem tem a forma:
+
+\begin{equation}
+a_n = p \cdot a_{n-1} + q \cdot a_{n-2}
+\end{equation}
+
+onde $p$ e $q$ são constantes.
+
+\subsubsection{Método da Equação Característica}
+
+Para resolver, formamos a equação característica:
+
+\begin{equation}
+r^2 - pr - q = 0
+\end{equation}
+
+Se as raízes $r_1$ e $r_2$ são distintas, a solução geral é:
+
+\begin{equation}
+a_n = C_1 r_1^n + C_2 r_2^n
+\end{equation}
+
+onde $C_1$ e $C_2$ são determinados pelos valores iniciais.
+
+Se $r_1 = r_2 = r$, a solução geral é:
+
+\begin{equation}
+a_n = C_1 r^n + C_2 n r^n
+\end{equation}
+
+\section{Exercícios Básicos Resolvidos}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício B1]
+Determine o próximo termo da sequência: 2, 5, 8, 11, ...
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Observamos que a diferença entre termos consecutivos é constante:
+\begin{align}
+5 - 2 &= 3\\
+8 - 5 &= 3\\
+11 - 8 &= 3
+\end{align}
+
+Portanto, trata-se de uma PA com razão $d = 3$. O próximo termo será:
+\begin{align}
+a_5 &= a_4 + d\\
+a_5 &= 11 + 3\\
+a_5 &= 14
+\end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício B2]
+Determine o próximo termo da sequência: 3, 6, 12, 24, ...
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Observamos que a razão entre termos consecutivos é constante:
+\begin{align}
+\frac{6}{3} &= 2\\
+\frac{12}{6} &= 2\\
+\frac{24}{12} &= 2
+\end{align}
+
+Portanto, trata-se de uma PG com razão $q = 2$. O próximo termo será:
+\begin{align}
+a_5 &= a_4 \cdot q\\
+a_5 &= 24 \cdot 2\\
+a_5 &= 48
+\end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício B3]
+Em uma PA, $a_1 = 7$ e $a_{10} = 43$. Determine a razão $d$ e o termo $a_5$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 + (n-1)d\\
+a_{10} &= 7 + (10-1)d\\
+43 &= 7 + 9d\\
+9d &= 43 - 7\\
+9d &= 36\\
+d &= 4
+\end{align}
+
+Agora, podemos calcular $a_5$:
+\begin{align}
+a_5 &= a_1 + (5-1)d\\
+a_5 &= 7 + 4 \cdot 4\\
+a_5 &= 7 + 16\\
+a_5 &= 23
+\end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício B4]
+Em uma PG, $a_1 = 5$ e $a_4 = 40$. Determine a razão $q$ e o termo $a_7$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 \cdot q^{n-1}\\
+a_4 &= 5 \cdot q^{4-1}\\
+40 &= 5 \cdot q^3\\
+\frac{40}{5} &= q^3\\
+8 &= q^3\\
+q &= \sqrt[3]{8}\\
+q &= 2
+\end{align}
+
+Agora, podemos calcular $a_7$:
+\begin{align}
+a_7 &= a_1 \cdot q^{7-1}\\
+a_7 &= 5 \cdot 2^6\\
+a_7 &= 5 \cdot 64\\
+a_7 &= 320
+\end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício B5]
+Calcule a soma dos 20 primeiros termos da PA: 3, 7, 11, 15, ...
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Primeiro, identificamos que $a_1 = 3$ e a razão $d = 4$. Usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{n[2a_1 + (n-1)d]}{2}\\
+S_{20} &= \frac{20[2 \cdot 3 + (20-1) \cdot 4]}{2}\\
+S_{20} &= \frac{20[6 + 19 \cdot 4]}{2}\\
+S_{20} &= \frac{20[6 + 76]}{2}\\
+S_{20} &= \frac{20 \cdot 82}{2}\\
+S_{20} &= 10 \cdot 82\\
+S_{20} &= 820
+\end{align}
+\end{tcolorbox}
+
+\section{Exercícios Intermediários Resolvidos}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício I1]
+Encontre a soma dos $n$ primeiros termos da sequência: $1, 3, 5, 7, ...$
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Esta é uma PA com $a_1 = 1$ e $d = 2$. O termo geral é $a_n = 1 + (n-1) \cdot 2 = 1 + 2n - 2 = 2n - 1$.
+
+Usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{n[2a_1 + (n-1)d]}{2}\\
+S_n &= \frac{n[2 \cdot 1 + (n-1) \cdot 2]}{2}\\
+S_n &= \frac{n[2 + 2n - 2]}{2}\\
+S_n &= \frac{n[2n]}{2}\\
+S_n &= n^2
+\end{align}
+
+Portanto, a soma dos $n$ primeiros números ímpares é $n^2$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício I2]
+Determine a soma $1 + 2 + 2^2 + 2^3 + ... + 2^{n-1}$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Esta é uma PG com $a_1 = 1$ e $q = 2$. Usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{a_1(1-q^n)}{1-q}\\
+S_n &= \frac{1(1-2^n)}{1-2}\\
+S_n &= \frac{1-2^n}{-1}\\
+S_n &= 2^n - 1
+\end{align}
+
+Portanto, $1 + 2 + 2^2 + 2^3 + ... + 2^{n-1} = 2^n - 1$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício I3]
+Encontre a soma $1 + 3 + 5 + ... + (2n-1)$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Esta é uma PA com $a_1 = 1$ e $d = 2$. O último termo é $a_n = 2n-1$.
+
+Usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{n(a_1 + a_n)}{2}\\
+S_n &= \frac{n(1 + (2n-1))}{2}\\
+S_n &= \frac{n(2n)}{2}\\
+S_n &= n^2
+\end{align}
+
+Portanto, $1 + 3 + 5 + ... + (2n-1) = n^2$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício I4]
+Determine a soma $\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + ... + \frac{1}{n(n+1)}$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Observe que podemos reescrever cada termo usando frações parciais:
+\begin{align}
+\frac{1}{k(k+1)} &= \frac{A}{k} + \frac{B}{k+1}\\
+\end{align}
+
+Multiplicando por $k(k+1)$:
+\begin{align}
+1 &= A(k+1) + Bk\\
+1 &= Ak + A + Bk\\
+1 &= k(A+B) + A
+\end{align}
+
+Comparando os coeficientes:
+\begin{align}
+A + B &= 0\\
+A &= 1
+\end{align}
+
+Portanto, $A = 1$ e $B = -1$, o que nos dá:
+\begin{align}
+\frac{1}{k(k+1)} &= \frac{1}{k} - \frac{1}{k+1}
+\end{align}
+
+Agora, podemos reescrever a soma:
+\begin{align}
+S_n &= \sum_{k=1}^{n} \frac{1}{k(k+1)}\\
+&= \sum_{k=1}^{n} \left(\frac{1}{k} - \frac{1}{k+1}\right)\\
+&= \left(1 - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{3}\right) + \left(\frac{1}{3} - \frac{1}{4}\right) + ... + \left(\frac{1}{n} - \frac{1}{n+1}\right)
+\end{align}
+
+Observe que temos uma soma telescópica, onde todos os termos intermediários se cancelam:
+\begin{align}
+S_n &= 1 - \frac{1}{n+1}\\
+&= \frac{n}{n+1}
+\end{align}
+
+Portanto, $\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + ... + \frac{1}{n(n+1)} = \frac{n}{n+1}$.
+\end{tcolorbox}
+
+\section{Sequência de Fibonacci}
+
+\subsection{Definição}
+
+A sequência de Fibonacci é definida pela recorrência:
+
+\begin{equation}
+F_n = F_{n-1} + F_{n-2}, \quad \text{com } F_1 = F_2 = 1
+\end{equation}
+
+Os primeiros termos são: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...
+
+\subsection{Fórmula de Binet}
+
+A fórmula fechada para o $n$-ésimo número de Fibonacci é:
+
+\begin{equation}
+F_n = \frac{\phi^n - (1-\phi)^n}{\sqrt{5}}
+\end{equation}
+
+onde $\phi = \frac{1+\sqrt{5}}{2} \approx 1,618$ é a razão áurea.
+
+\subsection{Propriedades Importantes}
+
+\begin{enumerate}
+    \item $F_{n+m} = F_m F_{n+1} + F_{m-1} F_n$
+    \item $F_n^2 = F_{n-1}F_{n+1} + (-1)^{n-1}$ (Identidade de Cassini)
+    \item $\gcd(F_m, F_n) = F_{\gcd(m,n)}$
+    \item $F_{n+1}F_{n-1} - F_n^2 = (-1)^n$
+\end{enumerate}
+
+\section{Exercícios Avançados Resolvidos}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício A1]
+Encontre uma fórmula fechada para a sequência definida por $a_n = 3a_{n-1} - 2a_{n-2}$ com $a_1 = 1$ e $a_2 = 3$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Vamos usar o método da equação característica. A equação característica é:
+\begin{align}
+r^2 - 3r + 2 &= 0\\
+(r-1)(r-2) &= 0
+\end{align}
+
+As raízes são $r_1 = 1$ e $r_2 = 2$. Portanto, a solução geral é:
+\begin{equation}
+a_n = C_1 \cdot 1^n + C_2 \cdot 2^n = C_1 + C_2 \cdot 2^n
+\end{equation}
+
+Usando as condições iniciais:
+\begin{align}
+a_1 &= C_1 + C_2 \cdot 2^1 = C_1 + 2C_2 = 1\\
+a_2 &= C_1 + C_2 \cdot 2^2 = C_1 + 4C_2 = 3
+\end{align}
+
+Resolvendo o sistema:
+\begin{align}
+C_1 + 2C_2 &= 1\\
+C_1 + 4C_2 &= 3
+\end{align}
+
+Subtraindo a primeira equação da segunda:
+\begin{align}
+2C_2 &= 2\\
+C_2 &= 1
+\end{align}
+
+Substituindo na primeira equação:
+\begin{align}
+C_1 + 2 \cdot 1 &= 1\\
+C_1 &= -1
+\end{align}
+
+Portanto, a fórmula fechada é:
+\begin{equation}
+a_n = -1 + 2^n
+\end{equation}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício A2]
+Prove que para todo $n \geq 1$, o número de Fibonacci $F_n$ é divisível por $F_k$ se e somente se $n$ é divisível por $k$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Vamos provar as duas direções:
+
+($\Rightarrow$) Suponha que $F_n$ é divisível por $F_k$. Precisamos mostrar que $n$ é divisível por $k$.
+
+Usaremos o fato de que $\gcd(F_m, F_n) = F_{\gcd(m,n)}$.
+
+Como $F_k$ divide $F_n$, temos que $\gcd(F_k, F_n) = F_k$. Pela propriedade acima, $F_{\gcd(k,n)} = F_k$.
+
+Isso só é possível se $\gcd(k,n) = k$, o que significa que $k$ divide $n$.
+
+($\Leftarrow$) Suponha que $n$ é divisível por $k$, ou seja, $n = mk$ para algum inteiro $m$.
+
+Vamos provar por indução em $m$ que $F_k$ divide $F_{mk}$.
+
+Base: Para $m = 1$, temos $n = k$, e claramente $F_k$ divide $F_k$.
+
+Passo indutivo: Suponha que $F_k$ divide $F_{mk}$ para algum $m \geq 1$. Precisamos mostrar que $F_k$ divide $F_{(m+1)k}$.
+
+Usando a identidade $F_{a+b} = F_a F_{b+1} + F_{a-1} F_b$, com $a = mk$ e $b = k$, temos:
+
+\begin{align}
+F_{(m+1)k} &= F_{mk+k}\\
+&= F_{mk} F_{k+1} + F_{mk-1} F_k
+\end{align}
+
+Por hipótese de indução, $F_k$ divide $F_{mk}$. Além disso, $F_k$ obviamente divide $F_k$. Portanto, $F_k$ divide $F_{(m+1)k}$.
+
+Por indução, concluímos que se $k$ divide $n$, então $F_k$ divide $F_n$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício A3]
+Encontre a soma $\sum_{i=1}^{n} i \cdot 2^i$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Vamos definir $S_n = \sum_{i=1}^{n} i \cdot 2^i$.
+
+Considere a série geométrica:
+\begin{align}
+\sum_{i=0}^{n} x^i = \frac{1-x^{n+1}}{1-x}
+\end{align}
+
+Diferenciando em relação a $x$:
+\begin{align}
+\sum_{i=1}^{n} i \cdot x^{i-1} = \frac{d}{dx}\left(\frac{1-x^{n+1}}{1-x}\right)
+\end{align}
+
+Multiplicando por $x$:
+\begin{align}
+\sum_{i=1}^{n} i \cdot x^i = x \cdot \frac{d}{dx}\left(\frac{1-x^{n+1}}{1-x}\right)
+\end{align}
+
+A derivada de $\frac{1-x^{n+1}}{1-x}$ é:
+\begin{align}
+\frac{d}{dx}\left(\frac{1-x^{n+1}}{1-x}\right) &= \frac{-(n+1)x^n(1-x) - (1-x^{n+1})(-1)}{(1-x)^2}\\
+&= \frac{-(n+1)x^n + (n+1)x^{n+1} + 1 - x^{n+1}}{(1-x)^2}\\
+&= \frac{1 - (n+1)x^n + nx^{n+1}}{(1-x)^2}
+\end{align}
+
+Substituindo $x = 2$:
+\begin{align}
+S_n &= 2 \cdot \frac{1 - (n+1)2^n + n2^{n+1}}{(1-2)^2}\\
+&= 2 \cdot \frac{1 - (n+1)2^n + n2 \cdot 2^n}{(-1)^2}\\
+&= 2 \cdot \frac{1 - (n+1)2^n + 2n \cdot 2^n}{1}\\
+&= 2 \cdot (1 - (n+1)2^n + 2n \cdot 2^n)\\
+&= 2 \cdot (1 - 2^n - n \cdot 2^n + 2n \cdot 2^n)\\
+&= 2 \cdot (1 - 2^n + n \cdot 2^n)\\
+&= 2 - 2 \cdot 2^n + 2n \cdot 2^n\\
+&= 2 - 2^{n+1} + n \cdot 2^{n+1}\\
+&= 2 + 2^{n+1}(n-1)
+\end{align}
+
+Portanto, $\sum_{i=1}^{n} i \cdot 2^i = 2 + 2^{n+1}(n-1)$.
+\end{tcolorbox}
+
+\section{Lista de Exercícios Propostos}
+
+\subsection{Exercícios Básicos}
+
+\begin{enumerate}
+    \item Determine o próximo termo da sequência: 4, 9, 14, 19, ...
+    
+    \item Determine o próximo termo da sequência: 5, 10, 20, 40, ...
+    
+    \item Em uma PA, $a_1 = 3$ e $a_{15} = 59$. Determine a razão $d$ e o termo $a_8$.
+    
+    \item Em uma PG, $a_1 = 6$ e $a_5 = 96$. Determine a razão $q$ e o termo $a_8$.
+    
+    \item Calcule a soma dos 15 primeiros termos da PA: 5, 8, 11, 14, ...
+    
+    \item Calcule a soma dos 8 primeiros termos da PG: 3, 6, 12, 24, ...
+    
+    \item Determine o termo geral da sequência: 5, 8, 11, 14, ...
+    
+    \item Determine o termo geral da sequência: 2, 6, 18, 54, ...
+    
+    \item Calcule a soma: $1 + 3 + 5 + ... + 99$.
+    
+    \item Calcule a soma: $2 + 4 + 8 + ... + 2^{10}$.
+\end{enumerate}
+
+\subsection{Exercícios Intermediários}
+
+\begin{enumerate}
+    \item Encontre a soma $\sum_{i=1}^{n} i^2$.
+    
+    \item Encontre a soma $\sum_{i=1}^{n} i^3$.
+    
+    \item Determine a soma $\sum_{i=1}^{n} (2i-1)^2$.
+    
+    \item Determine a soma $\sum_{i=1}^{n} \frac{1}{i(i+1)(i+2)}$.
+    
+    \item Encontre uma fórmula fechada para a sequência definida por $a_n = 5a_{n-1} - 6a_{n-2}$ com $a_1 = 1$ e $a_2 = 4$.
+    
+    \item Encontre uma fórmula fechada para a sequência definida por $a_n = 2a_{n-1} + 3a_{n-2}$ com $a_1 = 1$ e $a_2 = 2$.
+    
+    \item Prove que $F_{2n} = F_n \cdot (F_{n+1} + F_{n-1})$ para todo $n \geq 2$.
+    
+    \item Prove que $F_{n+2} \cdot F_{n-2} - F_n^2 = (-1)^n$ para todo $n \geq 3$.
+    
+    \item Prove que $\sum_{i=1}^{n} F_i = F_{n+2} - 1$ para todo $n \geq 1$.
+    
+    \item Encontre o valor de $\sum_{i=1}^{n} i \cdot F_i$.
+\end{enumerate}
+
+\subsection{Exercícios Avançados}
+
+\begin{enumerate}
+    \item Encontre o resto da divisão de $F_{2025}$ por 7.
+    
+    \item Determine todos os valores de $n$ para os quais $F_n$ é um número primo.
+    
+    \item Prove que $\gcd(F_n, F_{n+1}) = 1$ para todo $n \geq 1$.
+    
+    \item Encontre uma fórmula fechada para a sequência definida por $a_n = a_{n-1} + a_{n-2} + a_{n-3}$ com $a_1 = 1$, $a_2 = 2$ e $a_3 = 4$.
+    
+    \item Prove que $\sum_{k=0}^{n} \binom{n}{k}F_k = F_{2n}$.
+    
+    \item Determine todos os inteiros positivos $n$ tais que $F_n$ divide $F_{2n}$.
+    
+    \item Encontre o valor de $\sum_{k=1}^{n} \frac{F_k}{2^k}$.
+    
+    \item Prove que $\sum_{k=0}^{n} \binom{n}{k}^2 = \binom{2n}{n}$.
+    
+    \item Prove que $F_{n+m+p} = F_{n+p}F_{m+1} + F_{n}F_{m+p+1}$ para todos os inteiros não-negativos $n$, $m$ e $p$.
+    
+    \item Encontre o resto da divisão de $F_{2^n}$ por 3 para todo $n \geq 1$.
+\end{enumerate}
+
+\section{Técnicas Avançadas}
+
+\subsection{Funções Geradoras}
+
+Uma função geradora para uma sequência $(a_n)_{n \geq 0}$ é a série formal de potências:
+
+\begin{equation}
+G(x) = \sum_{n=0}^{\infty} a_n x^n
+\end{equation}
+
+Para a sequência de Fibonacci, a função geradora é:
+
+\begin{equation}
+G(x) = \frac{x}{1-x-x^2}
+\end{equation}
+
+\subsection{Método das Diferenças Finitas}
+
+Para uma sequência $(a_n)$, definimos a sequência de diferenças $(\Delta a_n)$ por:
+
+\begin{equation}
+\Delta a_n = a_{n+1} - a_n
+\end{equation}
+
+Podemos definir diferenças de ordem superior recursivamente:
+
+\begin{equation}
+\Delta^k a_n = \Delta(\Delta^{k-1} a_n)
+\end{equation}
+
+Se $\Delta^k a_n = 0$ para todo $n$ e algum $k$ fixo, então $a_n$ é um polinômio em $n$ de grau menor que $k$.
+
+\section{Aplicações em Problemas Olímpicos}
+
+\subsection{Problema da Torre de Hanói}
+
+O número mínimo de movimentos para resolver o problema da Torre de Hanói com $n$ discos é $2^n - 1$.
+
+\subsection{Problema do Tabuleiro de Xadrez}
+
+O número de maneiras de cobrir um tabuleiro $2 \times n$ com dominós $2 \times 1$ é o $(n+1)$-ésimo número de Fibonacci.
+
+\section{Referências}
+
+\begin{enumerate}
+    \item LIMA, Elon Lages et al. A Matemática do Ensino Médio. Coleção do Professor de Matemática, SBM.
+    \item MORGADO, Augusto César; CARVALHO, Paulo Cezar Pinto. Matemática Discreta. Coleção PROFMAT, SBM.
+    \item GRAHAM, Ronald L.; KNUTH, Donald E.; PATASHNIK, Oren. Concrete Mathematics. Addison-Wesley.
+    \item Revista Eureka! - Sociedade Brasileira de Matemática.
+\end{enumerate}
+
+\section{Exercícios Adicionais de PA e PG com Soluções}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 1]
+Em uma PA, o primeiro termo é 5 e o décimo termo é 32. Determine a razão e o vigésimo termo desta PA.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que $a_1 = 5$ e $a_{10} = 32$. Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 + (n-1)d\\
+a_{10} &= 5 + (10-1)d\\
+32 &= 5 + 9d\\
+9d &= 27\\
+d &= 3
+\end{align}
+
+Agora, podemos calcular o vigésimo termo:
+\begin{align}
+a_{20} &= a_1 + (20-1)d\\
+a_{20} &= 5 + 19 \cdot 3\\
+a_{20} &= 5 + 57\\
+a_{20} &= 62
+\end{align}
+
+Portanto, a razão da PA é $d = 3$ e o vigésimo termo é $a_{20} = 62$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 2]
+Em uma PG, o primeiro termo é 6 e o quarto termo é 48. Determine a razão e o sétimo termo desta PG.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que $a_1 = 6$ e $a_4 = 48$. Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 \cdot q^{n-1}\\
+a_4 &= 6 \cdot q^{4-1}\\
+48 &= 6 \cdot q^3\\
+\frac{48}{6} &= q^3\\
+8 &= q^3\\
+q &= 2
+\end{align}
+
+Agora, podemos calcular o sétimo termo:
+\begin{align}
+a_7 &= a_1 \cdot q^{7-1}\\
+a_7 &= 6 \cdot 2^6\\
+a_7 &= 6 \cdot 64\\
+a_7 &= 384
+\end{align}
+
+Portanto, a razão da PG é $q = 2$ e o sétimo termo é $a_7 = 384$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 3]
+A soma dos $n$ primeiros termos de uma PA é dada por $S_n = 3n^2 + 2n$. Determine o primeiro termo e a razão desta PA.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que $S_n = 3n^2 + 2n$. Vamos calcular $S_1$ para encontrar o primeiro termo:
+\begin{align}
+S_1 &= 3 \cdot 1^2 + 2 \cdot 1\\
+S_1 &= 3 + 2\\
+S_1 &= 5
+\end{align}
+
+Portanto, $a_1 = 5$.
+
+Para encontrar a razão, podemos usar a fórmula da soma dos $n$ primeiros termos:
+\begin{align}
+S_n &= \frac{n}{2}[2a_1 + (n-1)d]\\
+3n^2 + 2n &= \frac{n}{2}[2 \cdot 5 + (n-1)d]\\
+3n^2 + 2n &= \frac{n}{2}[10 + (n-1)d]\\
+\end{align}
+
+Multiplicando ambos os lados por $\frac{2}{n}$:
+\begin{align}
+\frac{2}{n}(3n^2 + 2n) &= 10 + (n-1)d\\
+6n + 4 &= 10 + (n-1)d\\
+6n + 4 - 10 &= (n-1)d\\
+6n - 6 &= (n-1)d\\
+\end{align}
+
+Como esta equação deve ser válida para todo $n$, comparamos os coeficientes de $n$ em ambos os lados:
+\begin{align}
+6 &= d\\
+-6 &= -d
+\end{align}
+
+Portanto, $d = 6$.
+
+Verificando: Para $n = 2$, temos $S_2 = 3 \cdot 2^2 + 2 \cdot 2 = 12 + 4 = 16$. 
+E $a_1 + a_2 = 5 + (5 + 6) = 5 + 11 = 16$. Correto!
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 4]
+Em uma PG de 5 termos, o primeiro termo é 3 e o último termo é 48. Determine a razão e a soma de todos os termos.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que $a_1 = 3$ e $a_5 = 48$. Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 \cdot q^{n-1}\\
+a_5 &= 3 \cdot q^{5-1}\\
+48 &= 3 \cdot q^4\\
+\frac{48}{3} &= q^4\\
+16 &= q^4\\
+q &= \sqrt[4]{16}\\
+q &= \sqrt{4}\\
+q &= 2
+\end{align}
+
+Agora, podemos calcular a soma de todos os termos usando a fórmula da soma:
+\begin{align}
+S_n &= \frac{a_1(1-q^n)}{1-q}\\
+S_5 &= \frac{3(1-2^5)}{1-2}\\
+S_5 &= \frac{3(1-32)}{-1}\\
+S_5 &= \frac{3(-31)}{-1}\\
+S_5 &= 3 \cdot 31\\
+S_5 &= 93
+\end{align}
+
+Portanto, a razão da PG é $q = 2$ e a soma de todos os termos é $S_5 = 93$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 5]
+Determine a soma dos 20 primeiros múltiplos positivos de 3.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Os 20 primeiros múltiplos positivos de 3 formam uma PA: 3, 6, 9, 12, ..., onde $a_1 = 3$ e $d = 3$.
+
+O vigésimo termo é:
+\begin{align}
+a_{20} &= a_1 + (20-1)d\\
+a_{20} &= 3 + 19 \cdot 3\\
+a_{20} &= 3 + 57\\
+a_{20} &= 60
+\end{align}
+
+A soma dos 20 primeiros termos é:
+\begin{align}
+S_{20} &= \frac{20(a_1 + a_{20})}{2}\\
+S_{20} &= \frac{20(3 + 60)}{2}\\
+S_{20} &= \frac{20 \cdot 63}{2}\\
+S_{20} &= 10 \cdot 63\\
+S_{20} &= 630
+\end{align}
+
+Portanto, a soma dos 20 primeiros múltiplos positivos de 3 é 630.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 6]
+Em uma PG, o terceiro termo é 20 e o sexto termo é 160. Determine o primeiro termo e a razão.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que $a_3 = 20$ e $a_6 = 160$. Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 \cdot q^{n-1}\\
+a_3 &= a_1 \cdot q^{3-1}\\
+20 &= a_1 \cdot q^2\\
+\end{align}
+
+E também:
+\begin{align}
+a_6 &= a_1 \cdot q^{6-1}\\
+160 &= a_1 \cdot q^5\\
+\end{align}
+
+Dividindo a segunda equação pela primeira:
+\begin{align}
+\frac{160}{20} &= \frac{a_1 \cdot q^5}{a_1 \cdot q^2}\\
+8 &= q^3\\
+q &= 2
+\end{align}
+
+Agora, podemos encontrar $a_1$:
+\begin{align}
+20 &= a_1 \cdot 2^2\\
+20 &= a_1 \cdot 4\\
+a_1 &= 5
+\end{align}
+
+Portanto, o primeiro termo é $a_1 = 5$ e a razão é $q = 2$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 7]
+Insira 4 meios aritméticos entre 7 e 27.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Queremos inserir 4 meios aritméticos entre 7 e 27, o que significa que teremos uma PA com 6 termos, onde $a_1 = 7$ e $a_6 = 27$.
+
+Para encontrar a razão:
+\begin{align}
+a_n &= a_1 + (n-1)d\\
+a_6 &= 7 + (6-1)d\\
+27 &= 7 + 5d\\
+5d &= 20\\
+d &= 4
+\end{align}
+
+Agora, podemos calcular os termos intermediários:
+\begin{align}
+a_2 &= 7 + 4 = 11\\
+a_3 &= 11 + 4 = 15\\
+a_4 &= 15 + 4 = 19\\
+a_5 &= 19 + 4 = 23
+\end{align}
+
+Portanto, os 4 meios aritméticos são: 11, 15, 19 e 23.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 8]
+Insira 3 meios geométricos entre 2 e 162.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Queremos inserir 3 meios geométricos entre 2 e 162, o que significa que teremos uma PG com 5 termos, onde $a_1 = 2$ e $a_5 = 162$.
+
+Para encontrar a razão:
+\begin{align}
+a_n &= a_1 \cdot q^{n-1}\\
+a_5 &= 2 \cdot q^{5-1}\\
+162 &= 2 \cdot q^4\\
+\frac{162}{2} &= q^4\\
+81 &= q^4\\
+q &= \sqrt[4]{81}\\
+q &= \sqrt{9}\\
+q &= 3
+\end{align}
+
+Agora, podemos calcular os termos intermediários:
+\begin{align}
+a_2 &= 2 \cdot 3 = 6\\
+a_3 &= 6 \cdot 3 = 18\\
+a_4 &= 18 \cdot 3 = 54
+\end{align}
+
+Portanto, os 3 meios geométricos são: 6, 18 e 54.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 9]
+A soma dos infinitos termos de uma PG é 9 e a soma dos quadrados dos seus termos é 27. Determine o primeiro termo e a razão.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que a soma dos infinitos termos é 9:
+\begin{align}
+S_{\infty} &= \frac{a_1}{1-q}\\
+9 &= \frac{a_1}{1-q}\\
+9(1-q) &= a_1\\
+a_1 &= 9 - 9q
+\end{align}
+
+Também sabemos que a soma dos quadrados dos termos é 27. A soma dos quadrados dos termos de uma PG infinita com $|q| < 1$ é:
+\begin{align}
+\sum_{n=1}^{\infty} a_n^2 &= \frac{a_1^2}{1-q^2}\\
+27 &= \frac{a_1^2}{1-q^2}\\
+27(1-q^2) &= a_1^2\\
+27 - 27q^2 &= a_1^2
+\end{align}
+
+Substituindo $a_1 = 9 - 9q$:
+\begin{align}
+27 - 27q^2 &= (9 - 9q)^2\\
+27 - 27q^2 &= 81 - 162q + 81q^2\\
+27 - 27q^2 &= 81 - 162q + 81q^2\\
+27 - 27q^2 - 81 + 162q - 81q^2 &= 0\\
+-54 + 162q - 108q^2 &= 0\\
+-54 + 162q - 108q^2 &= 0\\
+\end{align}
+
+Dividindo por -54:
+\begin{align}
+1 - 3q + 2q^2 &= 0\\
+2q^2 - 3q + 1 &= 0
+\end{align}
+
+Usando a fórmula de Bhaskara:
+\begin{align}
+q &= \frac{3 \pm \sqrt{9-8}}{4}\\
+q &= \frac{3 \pm \sqrt{1}}{4}\\
+q &= \frac{3 \pm 1}{4}
+\end{align}
+
+Portanto, $q = \frac{1}{2}$ ou $q = 1$. Como estamos lidando com uma soma infinita, precisamos que $|q| < 1$, então $q = \frac{1}{2}$.
+
+Agora, podemos calcular $a_1$:
+\begin{align}
+a_1 &= 9 - 9q\\
+a_1 &= 9 - 9 \cdot \frac{1}{2}\\
+a_1 &= 9 - 4.5\\
+a_1 &= 4.5
+\end{align}
+
+Portanto, o primeiro termo é $a_1 = 4.5$ e a razão é $q = \frac{1}{2}$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Exercício Adicional 10]
+Em uma PA, a soma do segundo e do quinto termos é 38, e a soma do terceiro e do sétimo termos é 62. Determine o primeiro termo e a razão.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Resolução]
+Sabemos que $a_2 + a_5 = 38$ e $a_3 + a_7 = 62$.
+
+Usando a fórmula do termo geral:
+\begin{align}
+a_n &= a_1 + (n-1)d\\
+a_2 &= a_1 + d\\
+a_5 &= a_1 + 4d\\
+a_3 &= a_1 + 2d\\
+a_7 &= a_1 + 6d
+\end{align}
+
+Substituindo na primeira condição:
+\begin{align}
+a_2 + a_5 &= 38\\
+(a_1 + d) + (a_1 + 4d) &= 38\\
+2a_1 + 5d &= 38 \quad (1)
+\end{align}
+
+Substituindo na segunda condição:
+\begin{align}
+a_3 + a_7 &= 62\\
+(a_1 + 2d) + (a_1 + 6d) &= 62\\
+2a_1 + 8d &= 62 \quad (2)
+\end{align}
+
+Subtraindo a equação (1) da equação (2):
+\begin{align}
+3d &= 24\\
+d &= 8
+\end{align}
+
+Substituindo $d = 8$ na equação (1):
+\begin{align}
+2a_1 + 5 \cdot 8 &= 38\\
+2a_1 + 40 &= 38\\
+2a_1 &= -2\\
+a_1 &= -1
+\end{align}
+
+Portanto, o primeiro termo é $a_1 = -1$ e a razão é $d = 8$.
+\end{tcolorbox}
+
+\end{document}

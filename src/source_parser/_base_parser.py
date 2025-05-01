@@ -57,7 +57,7 @@ class BaseDataParser(ABC):
         """
         # Basic validation: check if data is not empty
         if data.empty:
-            return False
+            raise RuntimeError("Dado Invalido")
 
         # Check required columns if specified in config
         if "required_columns" in self.config:

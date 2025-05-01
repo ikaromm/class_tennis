@@ -10,9 +10,9 @@ class TestPipeline(TestCase):
     def test_pipeline(self):
         config = PipelineConfig(
             dataset_type=DatasetType.TENNIS_MATCH,
-            dataset_path="dataset/",
+            dataset_path="dataset/raw/",
             loader_type=LoaderType.CSV,
-            path="dataset/test",
+            path="dataset/result/model_df.csv",
             data_col="tourney_date",
         )
 

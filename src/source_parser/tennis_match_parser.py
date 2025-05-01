@@ -33,15 +33,22 @@ class TennisMatchParser(BaseDataParser):
             Parsed and standardized DataFrame
         """
 
+        if not super()._validate_parsed_data(self.data):
+            raise ValueError("Dado Invalido")
+
+        self.data["outcome"] = 1
+
         parsed_data = self.data.copy()
 
         parsed_data = self._standardize_column_names(parsed_data)
 
-        parsed_data = self._process_date_column(parsed_data, self._data_col)
+        parsed_data = self._process_date_column(parsed_data)
 
         parsed_data = self._process_player_information(parsed_data)
 
         parsed_data = self._process_match_statistics(parsed_data)
+
+        parsed_data["match_id"] = parsed_data.index
 
         return parsed_data
 
@@ -62,14 +69,9 @@ class TennisMatchParser(BaseDataParser):
         if column_mapping:
             data = data.rename(columns=column_mapping)
 
-        # Convert all column names to lowercase and replace spaces with underscores
-        data.columns = [col.lower().replace(" ", "_") for col in data.columns]
-
         return data
 
-    def _process_date_column(
-        self, data: pd.DataFrame, data_col: List[str]
-    ) -> pd.DataFrame:
+    def _process_date_column(self, data: pd.DataFrame) -> pd.DataFrame:
         """
         Process and standardize date information.
 
@@ -79,28 +81,15 @@ class TennisMatchParser(BaseDataParser):
         Returns:
             DataFrame with processed date information
         """
-        try:
-            data[self._data_col] = pd.to_datetime(data[self._data_col])
+        data["tourney_date"] = pd.to_datetime(data["tourney_date"], format="%Y%m%d")
 
-            # Format date as YYYY-MM-DD (year-month-day only)
-            data[self._data_col] = data[self._data_col].dt.strftime("%Y-%m-%d")
+        data["tourney_datetime"] = data["tourney_date"] + pd.to_timedelta(
+            data.groupby(["tourney_date"]).cumcount(), unit="s"
+        )
 
-            # Extract additional date components
-            data["year"] = pd.to_datetime(data[self._data_col]).dt.year
-            data["month"] = pd.to_datetime(data[self._data_col]).dt.month
-            data["day"] = pd.to_datetime(data[self._data_col]).dt.day
+        data = data.sort_values(by="tourney_datetime").reset_index(drop=True)
 
-            # Create a concatenated column with year, month, and day
-            data["date_concat"] = (
-                data["year"].astype(str)
-                + "-"
-                + data["month"].astype(str).str.zfill(2)
-                + "-"
-                + data["day"].astype(str).str.zfill(2)
-            )
-
-        except Exception as e:
-            print(f"Warning: Failed to process date column: {str(e)}")
+        data = data.drop(columns=["tourney_date"])
 
         return data
 
